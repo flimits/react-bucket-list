@@ -7,47 +7,40 @@ function BucketList() {
 
   // Function to add a bucket list item
   const addBucketItem = (item) => {
-
     // TODO: Write logic to add the new bucket item to the bucket state variable
-    setBucket([...bucket, item]);
-    
+    setBucket([...bucket, item]); // Deconstruct the list and add the new item
   };
 
   // Function to mark bucket list item as complete
   const completeBucketItem = (id) => {
     // If the ID passed to this function matches the ID of the item that was clicked, mark it as complete
     let updatedBucket = bucket.map((item) => {
-      
       // TODO: Write logic that marks an item as complete or incomplete when invoked
-    if(item.id === id) {
-      item.complete = true;
-    }
-    return item;
-
+      if (item.id === id) {
+        item.completed = !item.completed
+      }
+      return item
     });
-
+    
     setBucket(updatedBucket);
   };
 
   // Function to remove bucket list item and update state
   const removeBucketItem = (id) => {
     // TODO: Write logic that will return an array of items that don't contain the ID passed to this function
-console.log(bucket)
-bucket.filter(item  => {
-  item.id !== id;
-}) 
-console.log(bucket)
+    const updatedBucket = bucket.filter((item) => item.id !== id)
+
     // TODO: Update the bucket state variable
-    setBucket(bucket);
+    setBucket(updatedBucket);
   };
 
   // Function to edit the bucket list item
   const editBucketItem = (itemId, newValue) => {
+    console.log("@editBucketItem")
     // Make sure that the value isn't empty
     if (!newValue.text) {
       return;
     }
-
     // We use the "prev" argument provided with the useState hook to map through our list of items
     // We then check to see if the item ID matches the id of the item that was clicked and if so, we set it to a new value
     setBucket((prev) =>
@@ -58,7 +51,7 @@ console.log(bucket)
   return (
     <div>
       <h1>What is on your bucket list?</h1>
-      <BucketForm onSubmit={addBucketItem} />
+      <BucketForm  onSubmit={addBucketItem} />
       <Bucket
         bucket={bucket}
         completeBucketItem={completeBucketItem}
