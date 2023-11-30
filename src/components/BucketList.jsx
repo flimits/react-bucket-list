@@ -8,8 +8,7 @@ function BucketList() {
   // Function to add a bucket list item
   const addBucketItem = (item) => {
     // TODO: Write logic to add the new bucket item to the bucket state variable
-    bucket.push(item)
-    setBucket(bucket);
+    setBucket([...bucket, item]); // Deconstruct the list and add the new item
   };
 
   // Function to mark bucket list item as complete
@@ -38,26 +37,21 @@ function BucketList() {
   // Function to edit the bucket list item
   const editBucketItem = (itemId, newValue) => {
     console.log("@editBucketItem")
-    console.log("newValue:", newValue);
-    console.log("itemId:", itemId);
     // Make sure that the value isn't empty
     if (!newValue.text) {
       return;
     }
-    
-    console.log("has text value");
     // We use the "prev" argument provided with the useState hook to map through our list of items
     // We then check to see if the item ID matches the id of the item that was clicked and if so, we set it to a new value
     setBucket((prev) =>
       prev.map((item) => (item.id === itemId ? newValue : item))
     );
-    console.log("editing bucket:", bucket)
   };
 
   return (
     <div>
       <h1>What is on your bucket list?</h1>
-      <BucketForm onSubmit={addBucketItem} />
+      <BucketForm  onSubmit={addBucketItem} />
       <Bucket
         bucket={bucket}
         completeBucketItem={completeBucketItem}
